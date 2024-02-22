@@ -1,6 +1,6 @@
 {% if site.navigation_header %}
-<nav class="nav  nav--header">
-  <ul class="list  list--nav">
+<nav class="slds-nav-vertical slds-nav-vertical_responsive" role="navigation">
+  <ul class="slds-list_vertical slds-list_vertical-space">
     {% for item in site.navigation_header %}
 
       {% if item.url contains '://' %}
@@ -9,12 +9,12 @@
         {% assign url = item.url | relative_url %}
       {% endif %}
 
-      <li class="item  item--nav{% if item.url == page.url %}  item--current{% endif %}">
-        <a href="{{ url }}">{{ item.title }}</a>
+      <li class="slds-list__item{% if item.url == page.url %} slds-is-active{% endif %}">
+        <a href="{{ url }}" class="slds-text-link">{% if item.icon %}<span class="slds-icon_container slds-icon-standard-{{ item.icon }}"><svg class="slds-icon" aria-hidden="true"><use xlink:href="{{ '/assets/icons/standard-sprite/svg/symbols.svg#' | prepend: site.baseurl }}"></use></svg></span>{% endif %}{{ item.title }}</a>
       </li>
     {% endfor %}
   </ul>
-  <button class="button  button--nav" aria-label="Menu toggle">
+  <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small slds-m-left_x-small" aria-label="Toggle Navigation">
     {% include icon.html id="nav" title="Menu" %}
   </button>
 </nav>
@@ -24,31 +24,31 @@
 
 <script type="text/javascript">
   // Get list and button
-  const navList = document.querySelector('.header .list--nav')
-  const button  = document.querySelector('.header .button--nav')
+  const navList = document.querySelector('.slds-nav-vertical_responsive');
+  const button  = document.querySelector('.slds-button_icon');
 
   // Hide nav and apply toggle
   const collapseNav = () => {
     if (document.body.clientWidth < 640) {
-      navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`)
+      navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`);
     } else {
-      navList.removeAttribute('style')
+      navList.removeAttribute('style');
     }
 
     button.onclick = () => {
-      navList.style.setProperty('transition', `margin .1s`)
+      navList.style.setProperty('transition', `margin .1s`);
       if (navList.style.getPropertyValue('--listHeight')) {
-        navList.style.removeProperty('--listHeight')
+        navList.style.removeProperty('--listHeight');
       } else {
-        navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`)
+        navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`);
       }
-    }
-  }
+    };
+  };
 
-  collapseNav()
+  collapseNav();
 
   // Check on resize if to collapse nav
   window.addEventListener('resize', () => {
-    collapseNav()
-  })
+    collapseNav();
+  });
 </script>
